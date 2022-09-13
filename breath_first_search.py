@@ -1,5 +1,6 @@
 import numpy as np
 def minStepToReachTarget(KnightPos, TargetPos, N):
+  print(f'mapping the following: \n\nknight position: {KnightPos} \nTarget Position: {TargetPos} \nheight x width of grid: {N} x {N}\n')
   if KnightPos == TargetPos:
     return 0
   knight = Knight(KnightPos, TargetPos, N )
@@ -38,7 +39,9 @@ class Knight:
       self.visited.append(pos)
       # includes only nodes that are within the bounds of the board:
       potential_nodes=[x for x in nodes if x[0] >=0 and x[0] <=self.space-1 and x[1] <= self.space-1 and x[1] >= 0 and x not in self.visited]
-      print(f'nodes from: {pos} are: ',potential_nodes)
+    
+    # ** use this to show the nodes
+    #   print(f'nodes from: {pos} are: ',potential_nodes)
       return potential_nodes
 
   # explore the path of each node
@@ -49,7 +52,7 @@ class Knight:
 
       if potential == []:
         # out of valid nodes to test, meaning it is not possible to find the goal.
-          print('cant find a path \nfunction has ended')
+        #   print('cant find a path \nfunction has ended')
           return 
 
       if self.fin not in potential:
@@ -60,12 +63,12 @@ class Knight:
                   self.search_path_from_node(x,this_attempts_count)
           else:
               # The path will not be a new winner (shortest), so give up now.
-              print('found another path but it was too long')
+            #   print('found another path but it was too long')
               count = 0 
               return
              
       else:
-          print('\nfound a path', this_attempts_count)
+        #   print('\nfound a path', this_attempts_count)
           self.paths.append({'count' : this_attempts_count,'origin':curr, 'curr': self.fin})
           self.current_shortest_path = this_attempts_count
           this_attempts_count = 0 
